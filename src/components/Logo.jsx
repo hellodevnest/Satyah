@@ -12,7 +12,7 @@ const Logo = ({ size = 60, className = '' }) => {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-      whileHover={{ scale: 1.01 }}
+      whileHover={{ scale: 1.02 }}
     >
       {!imageError ? (
         <img

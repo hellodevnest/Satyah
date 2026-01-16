@@ -128,7 +128,7 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
         >
-          <Logo size={140} />
+          <Logo size={170} />
         </motion.div>
 
         <motion.h1
@@ -170,30 +170,6 @@ const Hero = () => {
             <span className="button-text">Explore Our Services</span>
           </Link>
         </motion.div>
-      </motion.div>
-
-      {/* Animated Mouse Scroll Indicator */}
-      <motion.div
-        className="hero-scroll-indicator"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        onClick={(e) => {
-          e.preventDefault()
-          const servicesSection = document.getElementById('services')
-          if (servicesSection) {
-            servicesSection.scrollIntoView({ behavior: 'smooth' })
-          }
-        }}
-      >
-        <div className="mouse-icon">
-          <div className="mouse-body"></div>
-          <motion.div
-            className="mouse-wheel"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          ></motion.div>
-        </div>
       </motion.div>
     </section>
   )

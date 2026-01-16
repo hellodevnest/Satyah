@@ -8,11 +8,13 @@ const ThemeToggle = () => {
     if (saved) {
       return saved === 'dark'
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
+    // Default to dark mode on fresh load
+    return true
   })
 
   useEffect(() => {
     const root = document.documentElement
+    // Apply theme immediately to prevent flash
     if (isDark) {
       root.setAttribute('data-theme', 'dark')
       localStorage.setItem('theme', 'dark')
@@ -40,12 +42,12 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       onKeyDown={handleKeyDown}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       transition={{
         type: 'spring',
-        stiffness: 400,
-        damping: 25,
+        stiffness: 300,
+        damping: 30,
       }}
     >
       <motion.div

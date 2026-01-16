@@ -8,6 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+      // Set theme immediately to prevent flash of white
+      (function() {
+        const saved = localStorage.getItem('theme');
+        const theme = saved || 'dark'; // Default to dark mode
+        document.documentElement.setAttribute('data-theme', theme);
+        // Set background color immediately
+        document.documentElement.style.backgroundColor = theme === 'dark' ? '#0A0E1A' : '#E8F2F8';
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

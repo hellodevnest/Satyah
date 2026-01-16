@@ -38,7 +38,7 @@ const Navigation = () => {
     <nav className="navigation">
       <div className="nav-container">
         <Link to="/" className="nav-logo" onClick={() => window.scrollTo(0, 0)}>
-          <Logo size={50} />
+          <Logo size={60} />
           <span className="logo-text">SATYAH</span>
         </Link>
 
@@ -73,7 +73,7 @@ const Navigation = () => {
                 transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               >
                 <div className="menu-header">
-                  <Logo size={60} />
+                  <Logo size={75} />
                   <span className="logo-text">SATYAH</span>
                 </div>
                 <ul className="menu-list">
