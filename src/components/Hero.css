@@ -2,11 +2,13 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   overflow: hidden;
   text-align: center;
-  padding: var(--spacing-xl) var(--spacing-md);
+  padding: calc(var(--spacing-md) + 60px) var(--spacing-md) var(--spacing-md) var(--spacing-md);
+  padding-top: calc(var(--spacing-sm) + 60px);
+  background: #000000;
 }
 
 /* ============================================
@@ -20,6 +22,30 @@
   right: 0;
   bottom: 0;
   z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-background * {
+  pointer-events: none;
+}
+
+.zoom-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 
 /* Light Mode: Airy Mesh Gradient */
@@ -60,17 +86,21 @@
   opacity: 0;
 }
 
-/* Dark Mode: Star Field Particle System */
+/* Dark Mode: Star Field - Space Background */
 .hero-starfield {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease-in-out;
   z-index: 1;
+  background: #000000;
+  transform-origin: center center;
 }
 
 [data-theme="dark"] .hero-starfield {
@@ -79,123 +109,203 @@
 
 .star {
   position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(64, 128, 255, 0.8);
   border-radius: 50%;
-  box-shadow: 0 0 4px rgba(64, 128, 255, 0.6);
   transform-origin: center;
   will-change: transform, opacity;
+  pointer-events: none;
 }
 
-/* Dark Mode: Bento Grid */
-.hero-bento-grid {
+/* Bright foreground stars - white with blue tint */
+.star-bright {
+  background: #FFFFFF;
+  box-shadow: 
+    0 0 2px rgba(255, 255, 255, 0.8),
+    0 0 4px rgba(200, 220, 255, 0.6),
+    0 0 6px rgba(150, 180, 255, 0.4);
+}
+
+/* Medium stars - softer white */
+.star-medium {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 2px rgba(200, 220, 255, 0.4);
+}
+
+/* Faint distant stars - very subtle */
+.star-faint {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Galaxy Nebula Clouds */
+.galaxy-nebula {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.8s ease-in-out;
   z-index: 1;
+  transition: opacity 0.8s ease-in-out;
 }
 
-[data-theme="dark"] .hero-bento-grid {
+[data-theme="dark"] .galaxy-nebula {
   opacity: 1;
 }
 
-.bento-cell {
-  border: 1px solid rgba(64, 128, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.bento-cell::before {
-  content: '';
+.nebula-cloud {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(64, 128, 255, 0.1),
-    transparent
-  );
-  animation: shimmer-line 8s ease-in-out infinite;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  animation: nebula-drift 60s ease-in-out infinite;
 }
 
-.bento-cell:nth-child(odd)::before {
-  animation-delay: -2s;
-}
-
-.bento-cell:nth-child(even)::before {
-  animation-delay: -4s;
-}
-
-@keyframes shimmer-line {
-  0%, 100% {
-    left: -100%;
-  }
-  50% {
-    left: 100%;
-  }
-}
-
-/* Cursor Glow (Dark Mode) */
-.hero-cursor-glow {
-  position: absolute;
+.nebula-1 {
   width: 400px;
   height: 400px;
   background: radial-gradient(
     circle,
-    rgba(64, 64, 255, 0.2) 0%,
-    rgba(64, 64, 255, 0.1) 30%,
+    rgba(138, 43, 226, 0.15) 0%,
+    rgba(75, 0, 130, 0.1) 40%,
     transparent 70%
   );
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
-  z-index: 1;
+  top: 20%;
+  left: 15%;
+  animation-duration: 80s;
+  animation-delay: 0s;
 }
 
-[data-theme="dark"] .hero-cursor-glow {
-  opacity: 1;
+.nebula-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(
+    circle,
+    rgba(72, 61, 139, 0.12) 0%,
+    rgba(25, 25, 112, 0.08) 40%,
+    transparent 70%
+  );
+  top: 60%;
+  right: 20%;
+  animation-duration: 100s;
+  animation-delay: -20s;
+}
+
+.nebula-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(106, 90, 205, 0.1) 0%,
+    rgba(65, 105, 225, 0.06) 40%,
+    transparent 70%
+  );
+  bottom: 25%;
+  left: 50%;
+  animation-duration: 90s;
+  animation-delay: -40s;
+}
+
+@keyframes nebula-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-15px, 20px) scale(0.9);
+  }
+  75% {
+    transform: translate(30px, 15px) scale(1.05);
+  }
+}
+
+/* Galaxy Spiral Arms */
+.galaxy-spiral {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+[data-theme="dark"] .galaxy-spiral {
+  opacity: 0.3;
+}
+
+.spiral-arm {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 30%,
+    rgba(138, 43, 226, 0.08) 40%,
+    rgba(75, 0, 130, 0.05) 50%,
+    transparent 70%
+  );
+  transform-origin: center;
+  animation: spiral-rotate 200s linear infinite;
+}
+
+.spiral-arm-1 {
+  transform: rotate(0deg);
+  animation-duration: 200s;
+}
+
+.spiral-arm-2 {
+  transform: rotate(180deg);
+  animation-duration: 250s;
+  animation-direction: reverse;
+}
+
+@keyframes spiral-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Galaxy Star Field Rotation */
+.galaxy-stars {
+  transform-origin: center;
+  animation: galaxy-rotate 300s linear infinite;
+}
+
+@keyframes galaxy-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ============================================
-   GLASSMORPHIC CONTENT CONTAINER
+   CONTENT CONTAINER - NO BACKGROUND
    ============================================ */
 
-.hero-glass-container {
+.hero-content-container {
   position: relative;
-  z-index: 2;
-  max-width: 900px;
+  z-index: 10;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-xl) var(--spacing-lg);
-  background: var(--glass-bg);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border-radius: 32px;
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  transition: all 0.8s ease-in-out;
+  padding: 0 20px;
+  pointer-events: auto;
 }
 
-.hero-glass-container {
-  border-color: rgba(26, 43, 74, 0.15);
-}
-
-[data-theme="dark"] .hero-glass-container {
-  border-color: rgba(255, 255, 255, 0.1);
+.hero-content-container * {
+  pointer-events: auto;
 }
 
 /* ============================================
@@ -203,8 +313,8 @@
    ============================================ */
 
 .hero-logo-container {
-  margin-bottom: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+  padding: 0 var(--spacing-md);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,7 +330,7 @@
 .hero-title {
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 700;
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
   letter-spacing: 0.02em;
   font-family: var(--font-display);
   position: relative;
@@ -242,6 +352,7 @@
   background-clip: text;
   animation: shimmer-text 3s ease-in-out infinite;
   transition: all 0.8s ease-in-out;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 [data-theme="dark"] .title-shimmer {
@@ -257,6 +368,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
 }
 
 @keyframes shimmer-text {
@@ -272,12 +384,17 @@
   font-size: clamp(1.1rem, 2.5vw, 1.5rem);
   color: var(--color-text-light);
   line-height: 1.8;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   opacity: 0.8;
   transition: all 0.8s ease-in-out;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .hero-subtitle {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .subtitle-line-1,
@@ -291,71 +408,70 @@
    ============================================ */
 
 .hero-cta {
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-md);
 }
 
-.cta-button {
-  display: inline-block;
+/* New Explore Button Styles */
+.explore-button {
   position: relative;
-  padding: 1rem 2.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: #1e40af;  /* Modern blue shade */
   color: white;
-  background: var(--color-professional-blue);
+  border: 1px solid #3b82f6;  /* Slightly lighter blue border */
   border-radius: 50px;
-  box-shadow: var(--shadow-md);
-  cursor: pointer;
   text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.2), 
+              0 2px 4px -1px rgba(30, 64, 175, 0.1);
 }
 
-.cta-button:hover {
-  background: var(--color-professional-blue-light);
-  box-shadow: var(--shadow-glow);
-  transform: translateY(-3px) scale(1.02);
-}
-
-[data-theme="dark"] .cta-button {
-  background: var(--color-professional-blue);
-  box-shadow: var(--shadow-glow-soft);
-}
-
-[data-theme="dark"] .cta-button:hover {
-  box-shadow: var(--shadow-glow), 0 0 30px rgba(64, 128, 255, 0.5);
-}
-
-/* Glint/Sweep Light Effect */
-.button-glint {
+.explore-button::before {
+  content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  animation: glint-sweep 4s ease-in-out infinite;
+  background: linear-gradient(90deg, #1e40af, #3b82f6);
+  z-index: -1;
+  transition: all 0.3s ease;
+  opacity: 0.9;
 }
 
-@keyframes glint-sweep {
-  0% {
-    left: -100%;
-  }
-  50% {
-    left: 100%;
-  }
-  100% {
-    left: 100%;
-  }
+.explore-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(30, 64, 175, 0.3), 
+              0 4px 6px -2px rgba(30, 64, 175, 0.2);
 }
 
-.button-text {
+.explore-button:hover::before {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  opacity: 1;
+}
+
+.explore-arrow {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.explore-button:hover .explore-arrow {
+  transform: translateX(4px);
+}
+
+.explore-text {
   position: relative;
   z-index: 1;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 /* ============================================
@@ -415,12 +531,13 @@
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 90vh;
-    padding: var(--spacing-lg) var(--spacing-sm);
+    min-height: 100vh;
+    padding: calc(var(--spacing-sm) + 60px) var(--spacing-sm) var(--spacing-sm) var(--spacing-sm);
+    padding-top: calc(var(--spacing-xs) + 60px);
   }
 
-  .hero-glass-container {
-    padding: var(--spacing-lg) var(--spacing-md);
+  .hero-content-container {
+    padding: var(--spacing-xs) var(--spacing-md);
   }
 
   .hero-title {
@@ -436,11 +553,6 @@
   .cta-button {
     padding: 0.875rem 2rem;
     font-size: 1rem;
-  }
-
-  .hero-bento-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
   }
 
   .hero-cursor-glow {
