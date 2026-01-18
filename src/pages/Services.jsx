@@ -7,7 +7,7 @@ const ServicesPage = () => {
   const detailedServices = [
     {
       title: 'Research and Analysis',
-      icon: '📊',
+      videoUrl: '/videos/research.mp4',
       description:
         'Comprehensive research methodologies and in-depth analysis to uncover insights that drive strategic decisions.',
       features: [
@@ -20,7 +20,7 @@ const ServicesPage = () => {
     },
     {
       title: 'Data Collection and Analysis',
-      icon: '📈',
+      videoUrl: '/videos/data-collection.mp4',
       description:
         'Systematic data gathering and advanced analytical techniques to transform raw information into actionable intelligence.',
       features: [
@@ -33,7 +33,7 @@ const ServicesPage = () => {
     },
     {
       title: 'Consultancy Services',
-      icon: '💼',
+      videoUrl: '/videos/consultancy.mp4',
       description:
         'Expert guidance and strategic consulting to help organizations navigate complex challenges and opportunities.',
       features: [
@@ -46,7 +46,7 @@ const ServicesPage = () => {
     },
     {
       title: 'Sustainable Development Research',
-      icon: '🌱',
+      videoUrl: '/videos/sustainability.mp4',
       description:
         'Evidence-based research focused on creating sustainable solutions for long-term environmental and social impact.',
       features: [
@@ -59,7 +59,7 @@ const ServicesPage = () => {
     },
     {
       title: 'Strategic Planning',
-      icon: '🎯',
+      videoUrl: '/videos/strategy.mp4',
       description:
         'Data-driven strategic planning that aligns organizational goals with actionable roadmaps for success.',
       features: [
@@ -68,6 +68,20 @@ const ServicesPage = () => {
         'Goal setting and KPI definition',
         'Implementation planning',
         'Performance monitoring and evaluation',
+      ],
+    },
+    {
+      title: 'Monitoring & Evaluation (M&E)',
+      icon: '📋',
+      videoUrl: '/videos/me.mp4',
+      description:
+        'Comprehensive monitoring and evaluation frameworks to track program effectiveness and measure long-term impact.',
+      features: [
+        'Logic framework and theory of change',
+        'Impact assessment and measurement',
+        'Process and outcome evaluation',
+        'Data quality assurance',
+        'Reporting and learning dissemination',
       ],
     },
   ]
@@ -102,24 +116,38 @@ const ServicesPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="service-header">
-                <div className="service-icon-large">{service.icon}</div>
-                <div className="service-header-text">
-                  <h2 className="service-title-large">{service.title}</h2>
-                  <p className="service-description-large">
-                    {service.description}
-                  </p>
-                </div>
+              <div className="service-video-bg">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  className="service-video"
+                >
+                  <source src={service.videoUrl} type="video/mp4" />
+                </video>
+                <div className="service-video-overlay" />
               </div>
-              <div className="service-features">
-                <h3 className="features-title">Key Features:</h3>
-                <ul className="features-list">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="feature-item">
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+              <div className="service-card-content">
+                <div className="service-header">
+                  <div className="service-header-text">
+                    <h2 className="service-title-large">{service.title}</h2>
+                    <p className="service-description-large">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="service-features">
+                  <h3 className="features-title">Key Features:</h3>
+                  <ul className="features-list">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="feature-item">
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -145,7 +173,8 @@ const ServicesPage = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Link to="/contact" className="cta-button-large">
-                Contact Us
+                <span className="cta-button-text">Contact Us</span>
+                <span className="cta-button-arrow">→</span>
               </Link>
             </motion.div>
           </motion.div>

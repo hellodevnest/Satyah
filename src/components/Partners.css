@@ -1,5 +1,6 @@
 .partners {
-  background: var(--color-bg);
+  background: transparent !important;
+  /* Allow unified background to show */
   transition: background-color var(--transition-theme);
 }
 
@@ -15,36 +16,42 @@
   overflow: hidden;
   mask-image: linear-gradient(to right,
       transparent,
-      black 10%,
-      black 90%,
+      black 15%,
+      black 85%,
       transparent);
   -webkit-mask-image: linear-gradient(to right,
       transparent,
-      black 10%,
-      black 90%,
+      black 15%,
+      black 85%,
       transparent);
   padding: var(--spacing-md) 0;
 }
 
 .partners-marquee-track {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: 2rem;
+  /* Reduced to 32px */
   width: max-content;
   padding: var(--spacing-sm);
-  animation: marquee 30s linear infinite;
+  animation: marquee 20s linear infinite;
+  /* Increased speed */
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  /* Hardware acceleration */
 }
 
-.partners-marquee-track:hover {
+.partners-marquee-track:hover,
+.partners-marquee-track:active {
   animation-play-state: paused;
 }
 
 @keyframes marquee {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -72,7 +79,7 @@
 }
 
 .partner-card:hover {
-  box-shadow: 0 0 20px rgba(58, 90, 138, 0.3);
+  box-shadow: 0 0 30px rgba(58, 90, 138, 0.4);
   border-color: var(--color-professional-blue);
   background: rgba(15, 23, 42, 0.8);
   transform: translateY(-5px);
@@ -249,7 +256,23 @@
   .partner-card {
     padding: var(--spacing-sm);
     min-width: 140px;
+    /* Reduced specific size for mobile */
     max-width: 160px;
+    flex: 0 0 auto;
+    /* Ensure no shrinking/growing */
+  }
+
+  /* Specific Mobile Marquee Adjustments */
+  .partners-marquee-track {
+    gap: 1rem;
+    /* Reduced to 16px */
+    /* Reduced gap */
+  }
+
+  .partners-marquee-wrapper {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    /* Slightly tighter transparency on smaller screens */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
 
   .partner-logo {

@@ -6,8 +6,10 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Partners />
-      <Services />
+      <div className="unified-section">
+        <Partners />
+        <Services />
+      </div>
     </>
   )
 }
