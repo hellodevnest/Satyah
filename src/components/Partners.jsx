@@ -72,22 +72,35 @@ const Partners = () => {
           </p>
         </motion.div>
 
-        <div className="partners-grid">
-          {partners.map((partner, index) => (
-            <motion.div
-              key={partner.id}
-              className="partner-card"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              onClick={() => openModal(partner)}
-            >
-              <div className="partner-logo">{partner.logo}</div>
-              <h3 className="partner-name">{partner.name}</h3>
-            </motion.div>
-          ))}
+        <div className="partners-marquee-wrapper">
+          <motion.div
+            className="partners-marquee-track"
+          >
+            {/* First Set */}
+            {partners.map((partner) => (
+              <motion.div
+                key={`original-${partner.id}`}
+                className="partner-card"
+                whileHover={{ scale: 1.05, borderColor: "var(--color-professional-blue)" }}
+                onClick={() => openModal(partner)}
+              >
+                <div className="partner-logo">{partner.logo}</div>
+                <h3 className="partner-name">{partner.name}</h3>
+              </motion.div>
+            ))}
+            {/* Duplicate Set for Seamless Loop */}
+            {partners.map((partner) => (
+              <motion.div
+                key={`duplicate-${partner.id}`}
+                className="partner-card"
+                whileHover={{ scale: 1.05, borderColor: "var(--color-professional-blue)" }}
+                onClick={() => openModal(partner)}
+              >
+                <div className="partner-logo">{partner.logo}</div>
+                <h3 className="partner-name">{partner.name}</h3>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
 
         {/* Centered Modal */}

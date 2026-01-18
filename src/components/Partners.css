@@ -8,40 +8,83 @@
   margin-bottom: var(--spacing-xl);
 }
 
-.partners-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--spacing-lg);
-  margin-top: var(--spacing-lg);
-  flex-wrap: wrap;
+/* Marquee Styles */
+.partners-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent);
+  padding: var(--spacing-md) 0;
 }
 
+.partners-marquee-track {
+  display: flex;
+  gap: var(--spacing-lg);
+  width: max-content;
+  padding: var(--spacing-sm);
+  animation: marquee 30s linear infinite;
+}
+
+.partners-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
 .partner-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: rgba(15, 23, 42, 0.6);
+  /* Darker background */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: var(--spacing-md);
   border-radius: 20px;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Subtle border */
   text-align: center;
   cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   flex: 0 0 auto;
-  min-width: 180px;
-  max-width: 200px;
+  min-width: 200px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .partner-card:hover {
-  box-shadow: var(--shadow-glow-soft);
+  box-shadow: 0 0 20px rgba(58, 90, 138, 0.3);
   border-color: var(--color-professional-blue);
-  transform: translateY(-3px) scale(1.05);
+  background: rgba(15, 23, 42, 0.8);
+  transform: translateY(-5px);
+}
+
+[data-theme="dark"] .partner-card {
+  background: rgba(5, 5, 5, 0.6);
+  border-color: rgba(255, 255, 255, 0.05);
 }
 
 [data-theme="dark"] .partner-card:hover {
-  box-shadow: var(--shadow-glow), 0 0 25px rgba(58, 90, 138, 0.25);
-  background: rgba(26, 26, 26, 0.6);
+  background: rgba(5, 5, 5, 0.8);
 }
 
 .partner-logo {
@@ -50,16 +93,19 @@
   transition: transform var(--transition-base);
 }
 
-.partner-card:hover .partner-logo {
-  transform: scale(1.1);
-}
-
 .partner-name {
   font-size: 1.1rem;
   color: var(--color-text);
-  font-weight: 600;
+  /* Ensure text is visible, might need adjustment if background is very dark */
+  font-weight: 500;
   transition: color var(--transition-theme);
 }
+
+/* Ensure text is light on dark card */
+.partner-name {
+  color: #e2e8f0;
+}
+
 
 /* Centered Modal */
 .modal-overlay {
