@@ -4,54 +4,57 @@
   --color-navy-light: #2A3B5A;
   --color-navy-dark: #0F1A2E;
   --color-midnight: #0D1525;
-  
+
   --color-steel-blue: #6B7A9E;
   --color-steel-blue-light: #8A9BB8;
   --color-steel-blue-dark: #4A5A7A;
-  
+
   --color-off-white: #F5F7FA;
   --color-off-white-light: #FFFFFF;
   --color-off-white-dark: #E8EBF0;
-  
+
   --color-professional-blue: #3A5A8A;
   --color-professional-blue-light: #4A6A9A;
   --color-professional-blue-dark: #2A4A7A;
-  
+
   --color-cyan-blue: #5A8A9A;
   --color-cyan-blue-light: #6A9AAA;
   --color-cyan-blue-dark: #4A7A8A;
-  
+
   /* Light Mode - Light Blue Gradient Theme (Based on Image) */
   --color-bg: #E8F2F8;
   --color-bg-secondary: #F0F7FC;
   --color-bg-tertiary: #D8E8F4;
   --color-bg-gradient: linear-gradient(135deg, #E8F2F8 0%, #D0E4F0 50%, #E8F2F8 100%);
-  
+
   --color-text: #1A2B4A;
   --color-text-light: #4A5A7A;
   --color-text-muted: #6B7A9E;
   --color-border: #B8C8D8;
   --color-border-light: #C8D4E0;
-  
+
   /* Blue-Toned Shadows */
   --shadow-sm: 0 2px 8px rgba(26, 43, 74, 0.08);
   --shadow-md: 0 4px 16px rgba(26, 43, 74, 0.12);
   --shadow-lg: 0 8px 32px rgba(26, 43, 74, 0.16);
   --shadow-glow: 0 0 24px rgba(58, 90, 138, 0.25);
   --shadow-glow-soft: 0 0 40px rgba(58, 90, 138, 0.15);
-  
+
   /* Spacing */
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 6rem;
-  --spacing-2xl: 8rem;
-  
+  --spacing-lg: 3rem;
+  /* Further reduced for tighter flow */
+  --spacing-xl: 4rem;
+  /* Reduced from 6rem */
+  --spacing-2xl: 5rem;
+  /* Reduced from 8rem */
+
   /* Typography */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-display: 'Inter', sans-serif;
-  
+
   /* Premium Transitions */
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -59,7 +62,7 @@
   --transition-theme: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-premium: cubic-bezier(0.19, 1, 0.22, 1);
-  
+
   /* Glassmorphism - Light Blue Tinted */
   --glass-bg: rgba(240, 247, 252, 0.6);
   --glass-border: rgba(64, 128, 200, 0.25);
@@ -73,25 +76,25 @@
   --color-bg-secondary: #141B2E;
   --color-bg-tertiary: #1E2A42;
   --color-bg-gradient: linear-gradient(135deg, #0A0E1A 0%, #141B2E 50%, #0A0E1A 100%);
-  
+
   --color-text: #E8F0F8;
   --color-text-light: #B8D0E8;
   --color-text-muted: #7A9BC0;
   --color-border: #1E2A42;
   --color-border-light: #141B2E;
-  
+
   /* Dark Mode - Bright Blue Accents (Based on Image) */
   --color-professional-blue: #4080FF;
   --color-professional-blue-light: #5A9AFF;
   --color-professional-blue-dark: #2A60CC;
-  
+
   /* Dark Mode Shadows - Bright Blue Accents */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
   --shadow-glow: 0 0 24px rgba(64, 128, 255, 0.5);
   --shadow-glow-soft: 0 0 40px rgba(64, 128, 255, 0.3);
-  
+
   /* Dark Mode Glassmorphism */
   --glass-bg: rgba(0, 0, 0, 0.5);
   --glass-border: rgba(64, 128, 255, 0.2);
@@ -115,7 +118,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: 
+  transition:
     background 0.8s ease-in-out,
     color 0.8s ease-in-out;
 }
@@ -133,7 +136,12 @@ html[data-theme="light"] {
   background-color: #E8F2F8;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 600;
   line-height: 1.2;
@@ -168,7 +176,8 @@ img {
 }
 
 .section {
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-lg) 0;
+  /* Tighter section spacing */
 }
 
 /* Page Transition Wrapper */
@@ -180,7 +189,7 @@ img {
   .section {
     padding: var(--spacing-lg) 0;
   }
-  
+
   :root {
     --spacing-lg: 3rem;
     --spacing-xl: 4rem;

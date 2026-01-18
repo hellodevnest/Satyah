@@ -2,7 +2,8 @@
   background: var(--color-navy);
   color: var(--color-steel-blue);
   padding: var(--spacing-xl) 0 var(--spacing-md);
-  margin-top: var(--spacing-2xl);
+  margin-top: 0;
+  /* Removed margin for seamless flow */
   transition: background-color var(--transition-theme);
 }
 
